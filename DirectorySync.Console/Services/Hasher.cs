@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace DirectorySync.Console;
+namespace DirectorySync.Console.Services;
 
 public class Hasher : IDisposable
 {

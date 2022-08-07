@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DirectorySync.Console.Services;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace DirectorySync.Console;
+namespace DirectorySync.Console.DependencyInjection;
 
 public static class DependencyInjectionExtensions
 {
@@ -9,7 +10,7 @@ public static class DependencyInjectionExtensions
         services.AddTransient<Hasher>();
         services.AddTransient<IFilesystemMetadataProvider, FilesystemMetadataProvider>();
         services.AddTransient<IFileIdCreator, FileIdCreator>();
-        services.AddTransient<FilesystemMetadataComparator>(); // TODO: Add interface
+        services.AddTransient<IFilesystemChangeDetector, FilesystemChangeDetector>();
         
         return services;
     }

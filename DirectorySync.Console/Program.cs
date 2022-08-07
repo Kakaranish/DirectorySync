@@ -1,4 +1,5 @@
-﻿using DirectorySync.Console;
+﻿using DirectorySync.Console.DependencyInjection;
+using DirectorySync.Console.Services;
 using DirectorySync.Console.Types;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,8 +15,8 @@ var fs1Metadata = fsMetadataProvider.GetFor(fs1Dir);
 var fs2Dir = DirectoryPath.From("./test_data/pics_fs2");
 var fs2Metadata = fsMetadataProvider.GetFor(fs2Dir);
 
-var fsMetadataComparator = serviceProvider.GetRequiredService<FilesystemMetadataComparator>();
-fsMetadataComparator.Compare(fs1Metadata, fs2Metadata);
+var fsChangeDetector = serviceProvider.GetRequiredService<IFilesystemChangeDetector>();
+var fsChanges = fsChangeDetector.GetChanges(fs1Metadata, fs2Metadata);
 
 Console.ReadKey();
 

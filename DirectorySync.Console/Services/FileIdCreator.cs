@@ -1,6 +1,6 @@
 ﻿using DirectorySync.Console.Types;
 
-namespace DirectorySync.Console;
+namespace DirectorySync.Console.Services;
 
 public interface IFileIdCreator
 {

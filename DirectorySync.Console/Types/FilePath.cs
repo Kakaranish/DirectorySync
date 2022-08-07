@@ -5,7 +5,7 @@ public class FilePath : IEquatable<FilePath>
     public DirectoryPath DirectoryPath { get; }
     public string Filename { get; }
 
-    public string FullPath => DirectoryPath.Path + Path.PathSeparator + Filename;
+    public string FullPath => $"{DirectoryPath.Path}/{Filename}";
     
     private FilePath(DirectoryPath directoryPath, string filename)
     {
@@ -25,6 +25,11 @@ public class FilePath : IEquatable<FilePath>
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
         return DirectoryPath.Equals(other.DirectoryPath) && Filename == other.Filename;
+    }
+
+    public override string ToString()
+    {
+        return FullPath;
     }
 
     public override bool Equals(object? obj)

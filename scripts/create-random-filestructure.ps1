@@ -33,7 +33,7 @@ function RandomlyGenerateDirectory {
         [string] $rootDirectory
     )
 
-    $dirName = "$index`_" + (New-Guid).ToString()
+    $dirName = "$index`_" + (Get-Date).Ticks.ToString()
     $dirPath = (Join-Path $rootDirectory $dirName).ToString()
     New-Item -ItemType Directory $dirPath -Force | Out-Null
 
@@ -52,7 +52,6 @@ $createdDirectories = Get-ChildItem -Directory -Recurse -Path $TargetDirectory |
 foreach($file in $files) {
     $randomDirIndex = Get-Random -Minimum 0 -Maximum $createdDirectories.Length
     $randomDir = $createdDirectories[$randomDirIndex]
-    Write-Host $randomDir
-    
+        
     Copy-Item -Path $file -Destination (Join-Path $randomDir $file.Name)
 }

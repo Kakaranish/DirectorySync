@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorySync.Core", "Direc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorySync.Console", "DirectorySync.Console\DirectorySync.Console.csproj", "{D943B604-391E-497F-A260-6ED65DE91FB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorySync.Core.Tests.Unit", "DirectorySync.Core.Tests.Unit\DirectorySync.Core.Tests.Unit.csproj", "{1FCE8028-50FE-4882-AB42-30CB23AEA33F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D943B604-391E-497F-A260-6ED65DE91FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D943B604-391E-497F-A260-6ED65DE91FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D943B604-391E-497F-A260-6ED65DE91FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCE8028-50FE-4882-AB42-30CB23AEA33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCE8028-50FE-4882-AB42-30CB23AEA33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCE8028-50FE-4882-AB42-30CB23AEA33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCE8028-50FE-4882-AB42-30CB23AEA33F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

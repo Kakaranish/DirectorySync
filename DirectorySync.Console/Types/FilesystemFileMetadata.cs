@@ -3,13 +3,13 @@
 namespace DirectorySync.Console.Types;
 
 [DebuggerDisplay("{FilePathRelativeToFilesystem}")]
-public class FileInFilesystemMetadata
+public class FilesystemFileMetadata
 {
     public DirectoryPath FilesystemRoot { get; }
     public FilePath FilePathRelativeToFilesystem { get; }
     public FileMetadata FileMetadata { get; }
 
-    private FileInFilesystemMetadata(DirectoryPath filesystemRoot, FilePath filePathRelativeToFilesystem, 
+    private FilesystemFileMetadata(DirectoryPath filesystemRoot, FilePath filePathRelativeToFilesystem, 
         FileMetadata fileMetadata)
     {
         FilesystemRoot = filesystemRoot;
@@ -17,7 +17,7 @@ public class FileInFilesystemMetadata
         FileMetadata = fileMetadata;
     }
 
-    public static FileInFilesystemMetadata Create(DirectoryPath filesystemRoot, string fileAbsolutePath, 
+    public static FilesystemFileMetadata Create(DirectoryPath filesystemRoot, string fileAbsolutePath, 
         FileMetadata fileMetadata)
     {
         var directory = Path.GetDirectoryName(fileAbsolutePath);
@@ -29,6 +29,6 @@ public class FileInFilesystemMetadata
         var filename = Path.GetFileName(fileAbsolutePath);
         var filePath = FilePath.From(relativeDirectoryPath, filename);
         
-        return new FileInFilesystemMetadata(filesystemRoot, filePath, fileMetadata);
+        return new FilesystemFileMetadata(filesystemRoot, filePath, fileMetadata);
     }
 }

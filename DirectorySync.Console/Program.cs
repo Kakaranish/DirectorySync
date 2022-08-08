@@ -16,7 +16,7 @@ var fs2Dir = DirectoryPath.From("./test_data/pics_fs2");
 var fs2Metadata = fsMetadataProvider.GetFor(fs2Dir);
 
 var fsChangeDetector = serviceProvider.GetRequiredService<IFilesystemChangeDetector>();
-var fsChanges = fsChangeDetector.GetChanges(fs1Metadata, fs2Metadata);
+var fsChanges = fsChangeDetector.GetChanges(fs1Metadata, fs2Metadata).ToList();
 
 Console.ReadKey();
 

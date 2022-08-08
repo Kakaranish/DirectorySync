@@ -9,13 +9,6 @@ public interface IFilesystemMetadataProvider
 
 public class FilesystemMetadataProvider : IFilesystemMetadataProvider
 {
-    private readonly IFileIdCreator _fileIdCreator;
-
-    public FilesystemMetadataProvider(IFileIdCreator fileIdCreator)
-    {
-        _fileIdCreator = fileIdCreator;
-    }
-
     public FilesystemMetadata GetFor(DirectoryPath rootDirectoryPath)
     {
         var filesMetadata = GetFilesMetadata(rootDirectoryPath).ToList();
@@ -23,26 +16,14 @@ public class FilesystemMetadataProvider : IFilesystemMetadataProvider
         return new FilesystemMetadata(rootDirectoryPath, filesMetadata);
     }
 
-    private IEnumerable<FileInFilesystemMetadata> GetFilesMetadata(DirectoryPath rootDirectoryPath)
+    private static IEnumerable<FilesystemFileMetadata> GetFilesMetadata(DirectoryPath rootDirectoryPath)
     {
-        var fileInfos = Directory.GetFiles(rootDirectoryPath.Path, "*", SearchOption.AllDirectories)
+        var fileInfos = Directory.GetFiles(rootDirectoryPath.Path, searchPattern: "*", SearchOption.AllDirectories)
             .Select(f => new FileInfo(f));
         foreach (var fileInfo in fileInfos)
         {
-            var fileMetadata = new FileMetadata(
-                FileId: _fileIdCreator.Create(fileInfo.Name, fileInfo.Length),
-                Path: GetAbsoluteFilePath(fileInfo),
-                Size: fileInfo.Length);
-            
-            yield return FileInFilesystemMetadata.Create(rootDirectoryPath, fileInfo.FullName, fileMetadata);
+            var fileMetadata = FileMetadata.From(fileInfo);
+            yield return FilesystemFileMetadata.Create(rootDirectoryPath, fileInfo.FullName, fileMetadata);
         }
-
-    }
-
-    private static FilePath GetAbsoluteFilePath(FileInfo fileInfo)
-    {
-        if(fileInfo.DirectoryName is null) 
-            throw new ArgumentException($"{nameof(fileInfo.DirectoryName)} is not expected to be null here");
-        return FilePath.From(DirectoryPath.From(fileInfo.DirectoryName), fileInfo.Name);
     }
 }

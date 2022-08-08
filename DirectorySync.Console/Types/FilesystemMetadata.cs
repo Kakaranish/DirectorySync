@@ -2,5 +2,5 @@
 
 public record FilesystemMetadata(
     DirectoryPath RootPath,
-    IReadOnlyCollection<FileInFilesystemMetadata> FilesMetadata
+    IReadOnlyCollection<FilesystemFileMetadata> FilesystemFileMetadataCollection
 );

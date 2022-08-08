@@ -21,6 +21,6 @@ public class FileMetadata
         if(fileInfo.DirectoryName is null) 
             throw new ArgumentException($"{nameof(fileInfo.DirectoryName)} is not expected to be null here");
         
-        return FilePath.From(DirectoryPath.From(fileInfo.DirectoryName), fileInfo.Name);
+        return new FilePath(DirectoryPath.From(fileInfo.DirectoryName), fileInfo.Name);
     }
 }

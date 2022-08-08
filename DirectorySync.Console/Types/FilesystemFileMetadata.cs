@@ -27,7 +27,7 @@ public class FilesystemFileMetadata
         var relativeDirectoryPath = DirectoryPath.From(
             Path.GetRelativePath(filesystemRoot.Path, DirectoryPath.From(directory).Path));
         var filename = Path.GetFileName(fileAbsolutePath);
-        var filePath = FilePath.From(relativeDirectoryPath, filename);
+        var filePath = new FilePath(relativeDirectoryPath, filename);
         
         return new FilesystemFileMetadata(filesystemRoot, filePath, fileMetadata);
     }

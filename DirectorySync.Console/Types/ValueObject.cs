@@ -2,21 +2,21 @@
 
 public abstract class ValueObject
 {
-    protected static bool EqualOperator(ValueObject left, ValueObject? right)
+    private static bool EqualOperator(ValueObject left, ValueObject? right)
     {
         if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
         {
             return false;
         }
-        return ReferenceEquals(left, right) || left.Equals(right);
+        return ReferenceEquals(left, right) || left!.Equals(right);
     }
 
-    protected static bool NotEqualOperator(ValueObject left, ValueObject? right)
+    private static bool NotEqualOperator(ValueObject left, ValueObject? right)
     {
         return !EqualOperator(left, right);
     }
 
-    protected abstract IEnumerable<object> GetEqualityComponents();
+    protected abstract IEnumerable<object?> GetEqualityComponents();
 
     public override bool Equals(object? obj)
     {

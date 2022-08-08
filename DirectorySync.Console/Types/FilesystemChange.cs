@@ -1,12 +1,13 @@
 ﻿namespace DirectorySync.Console.Types;
 
-public enum FilesystemChangeType
+public class FilesystemChange
 {
-    Removed,
-    Added
-}
+    public FilesystemChangeType ChangeType { get; }
+    public FilePath PathRelativeToFilesystem { get; }
 
-public record FilesystemChange(
-    FilesystemChangeType ChangeType,
-    FilePath PathRelativeToFilesystem
-);
+    public FilesystemChange(FilesystemChangeType changeType, FilePath pathRelativeToFilesystem)
+    {
+        ChangeType = changeType;
+        PathRelativeToFilesystem = pathRelativeToFilesystem;
+    }
+}

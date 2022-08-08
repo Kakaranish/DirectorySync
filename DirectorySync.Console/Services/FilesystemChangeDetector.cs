@@ -13,21 +13,39 @@ public class FilesystemChangeDetector : IFilesystemChangeDetector
     public IReadOnlyCollection<FilesystemChange> GetChanges(FilesystemMetadata referenceFilesystemMetadata,
         FilesystemMetadata targetFilesystemMetadata)
     {
-        return referenceFilesystemMetadata.FilesMetadata
+        var fileMetadataGroupedByPath = referenceFilesystemMetadata.FilesMetadata
             .Concat(targetFilesystemMetadata.FilesMetadata)
-            .GroupBy(x => x.FilePathRelativeToFilesystem)
-            .Where(x => x.Count() == 1)
-            .SelectMany(x => x)
-            .Select(x => CreateChange(referenceFilesystemMetadata, x))
-            .ToList();
-    }
+            .GroupBy(x => x.FilePathRelativeToFilesystem);
 
-    private static FilesystemChange CreateChange(FilesystemMetadata referenceFilesystemMetadata, 
-        FileInFilesystemMetadata difference)
-    {
-        var changeType = difference.FilesystemRoot == referenceFilesystemMetadata.RootPath
-            ? FilesystemChangeType.Removed
-            : FilesystemChangeType.Added;
-        return new FilesystemChange(changeType, difference.FilePathRelativeToFilesystem);
+        var changes = new List<FilesystemChange>();
+        foreach (var fileMetadataForPath in fileMetadataGroupedByPath)
+        {
+            var groupSize = fileMetadataForPath.Count();
+            if (groupSize == 1)
+            {
+                var fileMetadata = fileMetadataForPath.Single();
+                
+                var changeType = fileMetadata.FilesystemRoot == referenceFilesystemMetadata.RootPath
+                    ? FilesystemChangeType.Removed
+                    : FilesystemChangeType.Added;
+                
+                changes.Add(new FilesystemChange(changeType, fileMetadata.FilePathRelativeToFilesystem));
+            }
+            else if (groupSize == 2)
+            {
+                if (fileMetadataForPath.ElementAt(0).FileMetadata.Size != fileMetadataForPath.ElementAt(1).FileMetadata.Size)
+                {
+                    changes.Add(new FilesystemChange(FilesystemChangeType.ContentChanged, 
+                        fileMetadataForPath.First().FilePathRelativeToFilesystem));
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Detected group with invalid size");
+            }
+            
+        }
+
+        return changes;
     }
 }

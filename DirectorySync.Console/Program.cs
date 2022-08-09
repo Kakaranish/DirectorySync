@@ -1,6 +1,6 @@
 ﻿using DirectorySync.Console.DependencyInjection;
-using DirectorySync.Console.Services;
-using DirectorySync.Console.Types;
+using DirectorySync.Core.Services;
+using DirectorySync.Core.Types;
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceCollection = new ServiceCollection();

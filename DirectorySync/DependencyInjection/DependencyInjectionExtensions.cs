@@ -1,4 +1,4 @@
-﻿using DirectorySync.Core.Services;
+﻿using DirectorySync.Console.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DirectorySync.Console.DependencyInjection;

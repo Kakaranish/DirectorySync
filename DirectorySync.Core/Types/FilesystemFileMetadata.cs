@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace DirectorySync.Console.Types;
+namespace DirectorySync.Core.Types;
 
 [DebuggerDisplay("{FilePathRelativeToFilesystem}")]
 public class FilesystemFileMetadata

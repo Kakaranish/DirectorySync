@@ -1,4 +1,4 @@
-﻿namespace DirectorySync.Console.Types;
+﻿namespace DirectorySync.Core.Types;
 
 public record FilesystemMetadata(
     DirectoryPath RootPath,

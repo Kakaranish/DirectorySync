@@ -1,6 +1,6 @@
-﻿using DirectorySync.Console.Types;
+﻿using DirectorySync.Core.Types;
 
-namespace DirectorySync.Console.Services;
+namespace DirectorySync.Core.Services;
 
 public interface IFilesystemChangeDetector
 {

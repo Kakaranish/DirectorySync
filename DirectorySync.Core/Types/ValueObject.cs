@@ -1,4 +1,4 @@
-﻿namespace DirectorySync.Console.Types;
+﻿namespace DirectorySync.Core.Types;
 
 public abstract class ValueObject
 {

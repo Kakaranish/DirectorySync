@@ -7,4 +7,25 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Assets\Icons\directory.ico" />
+      <Resource Include="Assets\Icons\directory.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="test_data\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DirectorySync.Core\DirectorySync.Core.csproj" />
+    </ItemGroup>
+
 </Project>

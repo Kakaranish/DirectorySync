@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using DirectorySync.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace DirectorySync
+namespace DirectorySync;
+
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    private readonly ServiceProvider _serviceProvider;
+
+    public App()
     {
+        var services = new ServiceCollection();
+        services.RegisterStartupDependencies();
+        _serviceProvider = services.BuildServiceProvider();
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        
+        var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
     }
 }

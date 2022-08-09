@@ -4,9 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectorySync"
+        xmlns:viewModels="clr-namespace:DirectorySync.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="DirectorySync v1.0.0" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0">
+            
+            <TextBlock Text="{Binding SelectedPath}" />
+            
+            <Button Content="Get reference path"
+                    Command="{Binding ChooseReferenceFilesystemCommand}" />
+            
+            
+
+            <TreeView >
+                <TreeViewItem Header="Item 1">
+                    <TreeViewItem>
+                        <TreeViewItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Icons/directory.ico" Height="15" Margin="0 0 10 0" />
+                                <TextBlock>Item 2</TextBlock>
+                            </StackPanel>
+                        </TreeViewItem.Header>
+                        <TreeViewItem></TreeViewItem>
+                        Item 3
+                    </TreeViewItem>    
+                </TreeViewItem>
+                <TreeViewItem>Item 2</TreeViewItem>
+                <TreeViewItem>Item 3</TreeViewItem>
+                
+            </TreeView>
+        </StackPanel>
 
     </Grid>
 </Window>

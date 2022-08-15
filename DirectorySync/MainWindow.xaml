@@ -6,8 +6,21 @@
         xmlns:viewModels="clr-namespace:DirectorySync.ViewModels"
         xmlns:views="clr-namespace:DirectorySync.Views"
         mc:Ignorable="d"
-        Title="DirectorySync v1.0.0" Height="450" Width="800">
+        Title="DirectorySync v1.0.0" 
+        MinHeight="450" MinWidth="600">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:FilesystemViewModel}">
+            <views:FilesystemView />
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBlock}" x:Key="Header">
+                <Setter Property="FontSize" Value="18"></Setter>
+            </Style>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*" />
             <ColumnDefinition Width="1*" />
@@ -15,29 +28,40 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
-            <Menu FontSize="15">
-                <MenuItem Header="_View">
-                    <MenuItem Header="About" />
-                </MenuItem>
-            </Menu>
-        </StackPanel>
         
-        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-                <TextBlock Text="{Binding SelectedPath}" />
-                
-                <Button Content="Get reference path"
-                        Command="{Binding ChooseReferenceFilesystemCommand}" />
-
-                <views:FilesystemView />
-
+        
+        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Reference filesystem" Style="{StaticResource Header}"/>
             </StackPanel>
-        </ScrollViewer>
 
+            <views:FilesystemView Grid.Row="1" DataContext="{Binding ReferenceFilesystemViewModel}"/>
+        </Grid>
+        
+        <Grid Grid.Row="0" Grid.Column="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Target filesystem" Style="{StaticResource Header}" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+
+            <views:FilesystemView Grid.Row="1" DataContext="{Binding TargetFilesystemViewModel}"/>
+        </Grid>
+        
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="LightGray">
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Content="Reference and Target filesystems must be chosen" />
+        </Border>
     </Grid>
 </Window>

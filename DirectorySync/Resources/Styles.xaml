@@ -1,14 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style TargetType="ListBoxItem">
-        <Setter Property="FontSize" Value="15" />
-    </Style>
-    <Style TargetType="TreeViewItem">
+    <Style TargetType="{x:Type TreeViewItem}">
         <Setter Property="FontSize" Value="15" />
     </Style>
     
-    <Style TargetType="TextBlock" x:Key="TextBoxInFsTreeView">
+    <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockBase">
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+    
+    <Style TargetType="TextBlock" x:Key="TextBoxInFsTreeView" BasedOn="{StaticResource TextBlockBase}">
         <Setter Property="Margin" Value="0 0 0 0"/>
+        <Setter Property="FontSize" Value="13" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsDirectory}" Value="False">
                 <Setter Property="Margin" Value="0 0 0 0"/>        

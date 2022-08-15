@@ -4,45 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:DirectorySync.ViewModels"
+             xmlns:controls="clr-namespace:DirectorySync.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TreeView ItemsSource="{Binding Items}" >
-                    <TreeView.Template>
-                        <ControlTemplate>
-                            <ItemsPresenter />
-                        </ControlTemplate>
-                    </TreeView.Template>
-                    
-                    <TreeView.ItemContainerStyle>
-                        <Style TargetType="TreeViewItem">
-                            <Setter Property="IsExpanded" Value="True" />
-                        </Style>
-                    </TreeView.ItemContainerStyle>
-                    
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate 
-                            DataType="{x:Type viewModels:FilesystemItemViewModel}" 
-                            ItemsSource="{Binding Items}">
-                            
-                            <HierarchicalDataTemplate.ItemContainerStyle>
-                                <Style TargetType="{x:Type TreeViewItem}">
-                                    <Setter Property="IsExpanded" Value="True" />
-                                    <Setter Property="Margin" Value="-12 0 0 0"></Setter>
-                                </Style>
-                            </HierarchicalDataTemplate.ItemContainerStyle>
-                            
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle x:Name="HorizontalLine" StrokeDashArray="2 2" HorizontalAlignment="Right" Height="1" Stroke="#FFCCCCCC" VerticalAlignment="Center"/>
-                                <Image Source="../Assets/Icons/directory.ico" 
-                                       Height="15" Margin="0 0 10 0"
-                                       Visibility="{Binding IsDirectory, 
-                                                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                                <TextBlock Style="{StaticResource TextBoxInFsTreeView}" Text="{Binding Title}" />
-                            </StackPanel>
-                            
-                        </HierarchicalDataTemplate>
-                    </TreeView.ItemTemplate>
-                </TreeView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <controls:SelectPathButton Margin="0 10" />
+    
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <TreeView ItemsSource="{Binding Items}" >
+                <TreeView.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </TreeView.Template>
+                
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate 
+                        DataType="{x:Type viewModels:FilesystemItemViewModel}" 
+                        ItemsSource="{Binding Items}">
+                        
+                        <HierarchicalDataTemplate.Resources>
+                            <ContextMenu x:Key="contextMenu1" StaysOpen="True">
+                                <MenuItem Header="Item 1"></MenuItem>
+                                <MenuItem Header="Item 2"></MenuItem>
+                            </ContextMenu>
+                        </HierarchicalDataTemplate.Resources>
+                        
+                        <HierarchicalDataTemplate.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="IsExpanded" Value="True" />
+                                <Setter Property="Margin" Value="-12 0 0 0" />
+                            </Style>
+                        </HierarchicalDataTemplate.ItemContainerStyle>
+                        
+                        <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource contextMenu1}">
+                            <Image Source="../Assets/Icons/directory.ico" 
+                                   Height="15" Margin="0 0 10 0"
+                                   Visibility="{Binding IsDirectory, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <TextBlock Style="{StaticResource TextBoxInFsTreeView}" Text="{Binding Title}" />
+                        </StackPanel>
+                        
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </ScrollViewer>
     </Grid>
 </UserControl>

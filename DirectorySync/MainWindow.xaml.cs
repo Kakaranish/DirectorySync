@@ -13,7 +13,7 @@ public partial class MainWindow : Window
 
         _mainWindowViewModel = mainWindowViewModel;
         DataContext = _mainWindowViewModel;
-            
+        
         Loaded += OnLoaded;
     }
 

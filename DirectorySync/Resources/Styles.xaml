@@ -6,4 +6,13 @@
     <Style TargetType="TreeViewItem">
         <Setter Property="FontSize" Value="15" />
     </Style>
+    
+    <Style TargetType="TextBlock" x:Key="TextBoxInFsTreeView">
+        <Setter Property="Margin" Value="0 0 0 0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsDirectory}" Value="False">
+                <Setter Property="Margin" Value="0 0 0 0"/>        
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

@@ -18,7 +18,7 @@ public class FilesystemMetadataProvider : IFilesystemMetadataProvider
 
     private static IEnumerable<FilesystemFileMetadata> GetFilesMetadata(DirectoryPath rootDirectoryPath)
     {
-        var fileInfos = Directory.GetFiles(rootDirectoryPath.Path, searchPattern: "*", SearchOption.AllDirectories)
+        var fileInfos = Directory.GetFiles(rootDirectoryPath.Path, searchPattern: "*.*", SearchOption.AllDirectories)
             .Select(f => new FileInfo(f));
         foreach (var fileInfo in fileInfos)
         {

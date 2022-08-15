@@ -13,6 +13,17 @@ public class FilePath : ValueObject
         Filename = filename;
     }
 
+    public static FilePath FromAbsolutePath(string absolutePath)
+    {
+        var sanitizedPath = absolutePath.Replace("\\", "/").Trim('.').Trim('/');
+        var lastSlashIndex = sanitizedPath.LastIndexOf("/", StringComparison.Ordinal);
+        
+        var filename = sanitizedPath.Substring(lastSlashIndex + 1);
+        var directoryPathStr = sanitizedPath.Substring(0, lastSlashIndex);
+        
+        return new FilePath(DirectoryPath.From(directoryPathStr), filename);
+    }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return DirectoryPath;

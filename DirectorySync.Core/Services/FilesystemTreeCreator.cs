@@ -1,6 +1,6 @@
 using DirectorySync.Core.Types;
 
-namespace DirectorySync.Core.Types2;
+namespace DirectorySync.Core.Services;
 
 public class FilesystemTreeCreator
 {

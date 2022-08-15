@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="DirectorySync.Views.FilesystemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:DirectorySync.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <TreeView ItemsSource="{Binding Items}" >
+                    <TreeView.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter />
+                        </ControlTemplate>
+                    </TreeView.Template>
+                    
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="TreeViewItem">
+                            <Setter Property="IsExpanded" Value="True" />
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate 
+                            DataType="{x:Type viewModels:FilesystemItemViewModel}" 
+                            ItemsSource="{Binding Items}">
+                            
+                            <HierarchicalDataTemplate.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <Setter Property="IsExpanded" Value="True" />
+                                    <Setter Property="Margin" Value="-12 0 0 0"></Setter>
+                                </Style>
+                            </HierarchicalDataTemplate.ItemContainerStyle>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle x:Name="HorizontalLine" StrokeDashArray="2 2" HorizontalAlignment="Right" Height="1" Stroke="#FFCCCCCC" VerticalAlignment="Center"/>
+                                <Image Source="../Assets/Icons/directory.ico" 
+                                       Height="15" Margin="0 0 10 0"
+                                       Visibility="{Binding IsDirectory, 
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <TextBlock Style="{StaticResource TextBoxInFsTreeView}" Text="{Binding Title}" />
+                            </StackPanel>
+                            
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+    </Grid>
+</UserControl>
